@@ -1,0 +1,21 @@
+{% extends 'base.html' %} {% block title %} Home {% endblock %} {% block head %}
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+{% endblock %}
+{% block content %}
+<form action="{{ url_for('send_message') }}" method="POST">
+    <textarea name="message" placeholder="Type your message here"></textarea>
+    <button type="submit">Send</button>
+</form>
+
+<div class="messages">
+    {% for message in messages %}
+    <div
+        class="message{% if message.sender == current_user %} sent{% else %} received{% endif %}"
+    >
+        <span class="sender">{{ message.sender.name }}</span>
+        <span class="content">{{ message.content }}</span>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
